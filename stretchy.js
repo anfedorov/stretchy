@@ -51,13 +51,14 @@ var _ = self.Stretchy = {
 			element.style.height = "0";
 
 			if (cs.boxSizing == "border-box") {
-				offset = element.offsetHeight;
+				offset = parseFloat(cs.borderBottomWidth) + parseFloat(cs.borderTopWidth);
 			}
 			else if (cs.boxSizing == "content-box") {
 				offset = -element.clientHeight + parseFloat(cs.minHeight);
 			}
 
-			element.style.height = element.scrollHeight + offset + "px";
+			var height = Math.max(parseFloat(cs.minHeight), element.scrollHeight)
+			element.style.height = height + offset + "px";
 		}
 		else if(type == "input") {
 			// First test that it is actually visible, otherwise all measurements are off
